@@ -18,9 +18,23 @@ const announcementRequestSchema = announcementSchema.omit({
 });
 const announcementResponseSchema = announcementSchema.omit({});
 const announcementMultipleResponseSchema = announcementResponseSchema.array();
+
+const announcementUpdateSchema = z.object({
+  brand: z.string().optional(),
+  model: z.string().optional(),
+  year: z.string().optional(),
+  fuel: z.string().optional(),
+  km: z.number().optional(),
+  color: z.string().optional(),
+  fipePrice: z.number().optional(),
+  price: z.number().optional(),
+  description: z.string().optional(),
+  image: z.string().optional(),
+});
 export {
   announcementSchema,
   announcementRequestSchema,
   announcementResponseSchema,
   announcementMultipleResponseSchema,
+  announcementUpdateSchema
 };
