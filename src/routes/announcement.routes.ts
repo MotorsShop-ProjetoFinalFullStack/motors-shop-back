@@ -11,6 +11,7 @@ import {
   announcementUpdateSchema,
 } from "../schemas/announcement.schemas";
 import { ensureAnnouncementExistsMiddleware } from "../middlewares/ensureAnnouncementExists.middleware";
+import { verifyToken } from "../middlewares/verifyToken.middlewares";
 
 const announcementRoutes = Router();
 
