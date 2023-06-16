@@ -13,17 +13,6 @@ const createUserServices = async (data: TUserRequest): Promise<TUserResponse> =>
     const userRepository = AppDataSource.getRepository(User)
     const addressRepository = AppDataSource.getRepository(Address)
 
-    const findUser = await userRepository.findOne({
-        where: {
-            email,
-            cpf
-        }
-    })
-
-    if(findUser){
-        throw new AppError("User already exists")
-    }    
-
     const addressData = data.address
     delete data.address
 
