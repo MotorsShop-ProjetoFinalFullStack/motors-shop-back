@@ -1,5 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
+enum FuelType {
+  Gasolina = "Gasolina",
+  Alcool = "Álcool",
+  Flex = "Flex",
+  Diesel = "Diesel",
+  Eletrico = "Elétrico",
+}
+
 @Entity("announcement")
 class Announcement {
   @PrimaryGeneratedColumn("uuid")
@@ -14,7 +22,7 @@ class Announcement {
   @Column({ type: "date" })
   year: string;
 
-  @Column()
+  @Column({ type: "enum", enum: FuelType })
   fuel: string;
 
   @Column({ type: "int" })
