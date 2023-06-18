@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "./address.entitie";
+import { Announcement } from "./announcement.entitie";
 
 export enum TypeUser {
     CLIENT = "Comprador",
@@ -41,7 +42,9 @@ class User {
     @OneToOne(() => Address, (address) => address.user)
     address?: Address | undefined
 
-    
+    @OneToMany(() => Announcement, announcementsUser => announcementsUser.user)
+    announcements: Announcement[]
+
 }
 
 export {User}
