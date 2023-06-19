@@ -10,7 +10,9 @@ import { updateAnnouncementService } from "../services/announcement/updateAnnoun
 
 const createAnnouncementController = async (req: Request, res: Response) => {
   const data: TAnnouncementRequest = req.body;
-  const newAnnouncement = await createAnnouncementService(data);
+  const userId: string = req.user.id
+
+  const newAnnouncement = await createAnnouncementService(data, userId);
   return res.status(201).json(newAnnouncement);
 };
 const lisAnnouncementController = async (req: Request, res: Response) => {
