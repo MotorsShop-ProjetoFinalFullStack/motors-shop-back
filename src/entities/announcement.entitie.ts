@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { User } from "./user.entitie";
 
 enum FuelType {
   Gasolina = "Gasolina",
@@ -8,7 +9,7 @@ enum FuelType {
   Eletrico = "Elétrico",
 }
 
-@Entity("announcement")
+@Entity("announcements")
 class Announcement {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -42,6 +43,9 @@ class Announcement {
 
   @Column({ length: 255 })
   image: string;
+
+  @ManyToOne(() => User)
+  user: User
 }
 
 export { Announcement };

@@ -22,8 +22,8 @@ export async function verifyToken(
     }
 
     req.user = {
-      id: parseInt(decoded.sub),
-      admin: decoded.admin,
+      id: decoded.sub,
+      typeUser: decoded.typeUser,
     };
   });
 

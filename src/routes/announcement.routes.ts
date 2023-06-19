@@ -12,11 +12,14 @@ import {
 } from "../schemas/announcement.schemas";
 import { ensureAnnouncementExistsMiddleware } from "../middlewares/ensureAnnouncementExists.middleware";
 import { verifyToken } from "../middlewares/verifyToken.middlewares";
+import { verifyUserIsAdvertiserMiddleware } from "../middlewares/verifyUserIsAdvertiser.middleware";
 
 const announcementRoutes = Router();
 
 announcementRoutes.post(
   "",
+  verifyToken,
+  verifyUserIsAdvertiserMiddleware,
   ensureDataIsValidMiddleware(announcementRequestSchema),
   createAnnouncementController
 );

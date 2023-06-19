@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  PartialAnnouncement,
   TAnnouncement,
   TAnnouncementRequest,
 } from "../interfaces/announcement.interfaces";
@@ -10,7 +11,9 @@ import { updateAnnouncementService } from "../services/announcement/updateAnnoun
 
 const createAnnouncementController = async (req: Request, res: Response) => {
   const data: TAnnouncementRequest = req.body;
-  const newAnnouncement = await createAnnouncementService(data);
+  const userId: string = req.user.id
+
+  const newAnnouncement = await createAnnouncementService(data, userId);
   return res.status(201).json(newAnnouncement);
 };
 const lisAnnouncementController = async (req: Request, res: Response) => {
@@ -23,8 +26,8 @@ const deleteAnnouncementController = async (req: Request, res: Response) => {
   return res.status(204).send();
 };
 const upgradeAnnouncementController = async (req: Request, res: Response) => {
-  const AnnouncementData: TAnnouncement = req.body;
-  const idAnnouncement = parseInt(req.params.id);
+  const AnnouncementData: PartialAnnouncement = req.body;
+  const idAnnouncement = req.params.id;
 
   const updatedAnnouncement = await updateAnnouncementService(
     AnnouncementData,
