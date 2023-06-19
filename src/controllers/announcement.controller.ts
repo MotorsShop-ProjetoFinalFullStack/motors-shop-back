@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  PartialAnnouncement,
   TAnnouncement,
   TAnnouncementRequest,
 } from "../interfaces/announcement.interfaces";
@@ -25,8 +26,8 @@ const deleteAnnouncementController = async (req: Request, res: Response) => {
   return res.status(204).send();
 };
 const upgradeAnnouncementController = async (req: Request, res: Response) => {
-  const AnnouncementData: TAnnouncement = req.body;
-  const idAnnouncement = parseInt(req.params.id);
+  const AnnouncementData: PartialAnnouncement = req.body;
+  const idAnnouncement = req.params.id;
 
   const updatedAnnouncement = await updateAnnouncementService(
     AnnouncementData,
