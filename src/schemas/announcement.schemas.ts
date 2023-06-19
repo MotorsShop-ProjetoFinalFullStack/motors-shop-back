@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { userSchemaResponse } from "./user.schemas";
 
 const announcementSchema = z.object({
   id: z.string(),
@@ -12,9 +13,11 @@ const announcementSchema = z.object({
   price: z.number(),
   description: z.string(),
   image: z.string(),
+  user: userSchemaResponse
 });
 const announcementRequestSchema = announcementSchema.omit({
   id: true,
+  user: true
 });
 const announcementResponseSchema = announcementSchema.omit({});
 const announcementMultipleResponseSchema = announcementResponseSchema.array();
