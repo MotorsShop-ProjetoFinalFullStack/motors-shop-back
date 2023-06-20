@@ -2,7 +2,8 @@ import { Router } from "express";
 import {
   createAnnouncementController,
   deleteAnnouncementController,
-  lisAnnouncementController,
+  listAnnouncementController,
+  listAnnouncementsByTokenController,
   upgradeAnnouncementController,
 } from "../controllers/announcement.controller";
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
@@ -23,7 +24,11 @@ announcementRoutes.post(
   ensureDataIsValidMiddleware(announcementRequestSchema),
   createAnnouncementController
 );
-announcementRoutes.get("", lisAnnouncementController);
+
+announcementRoutes.get("", listAnnouncementController);
+
+announcementRoutes.get("/users", verifyToken, verifyUserIsAdvertiserMiddleware, listAnnouncementsByTokenController)
+
 announcementRoutes.delete(
   "/:id",
   ensureAnnouncementExistsMiddleware,
