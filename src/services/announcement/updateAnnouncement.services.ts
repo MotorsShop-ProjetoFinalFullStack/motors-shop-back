@@ -1,15 +1,19 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Announcement } from "../../entities/announcement.entitie";
-import { PartialAnnouncement, TAnnouncement } from "../../interfaces/announcement.interfaces";
+import {
+  PartialAnnouncement,
+  TAnnouncement,
+} from "../../interfaces/announcement.interfaces";
 import { announcementUpdateSchema } from "../../schemas/announcement.schemas";
 import { Request } from "express";
 
 export const updateAnnouncementService = async (
   newAnnouncementData: PartialAnnouncement,
-  idAnnouncement: string,
+  idAnnouncement: string
 ): Promise<any> => {
-  const announcementRepository: Repository<Announcement> = AppDataSource.getRepository(Announcement);
+  const announcementRepository: Repository<Announcement> =
+    AppDataSource.getRepository(Announcement);
 
   const oldAnnouncementData = await announcementRepository.findOneBy({
     id: idAnnouncement,
