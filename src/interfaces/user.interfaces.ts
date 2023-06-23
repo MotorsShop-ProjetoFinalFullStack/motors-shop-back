@@ -1,10 +1,5 @@
 import { z } from "zod";
-import {
-  userRetrieveSchemaResponse,
-  userSchema,
-  userSchemaRequest,
-  userSchemaResponse,
-} from "../schemas/user.schemas";
+import { addressSchemaRequest, addressSchemaUpdateRequest, userRetrieveSchemaResponse, userSchema, userSchemaRequest, userSchemaResponse } from "../schemas/user.schemas";
 import { DeepPartial } from "typeorm";
 
 type TUser = z.infer<typeof userSchema>;
@@ -17,12 +12,7 @@ interface IEmailRequest {
   subject: string;
   text: string;
 }
+type TAddressRequest = z.infer<typeof addressSchemaUpdateRequest>
+type TAddressUpdateRequest = DeepPartial<TAddressRequest>
 
-export {
-  TUserRequest,
-  TUser,
-  TUserResponse,
-  TUserUpdateRequest,
-  TUserRetrieveResponse,
-  IEmailRequest,
-};
+export {TUserRequest, TUser, TUserResponse, TUserUpdateRequest, TUserRetrieveResponse, TAddressRequest, TAddressUpdateRequest, IEmailRequest}

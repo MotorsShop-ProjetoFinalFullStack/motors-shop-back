@@ -38,6 +38,8 @@ const userSchemaRequest = userSchema
 
 const userSchemaUpdateRequest = userSchemaRequest.partial();
 
+const addressSchemaUpdateRequest = addressSchemaRequest.partial()
+
 const userSchemaResponse = userSchema.omit({
   password: true,
 });
@@ -54,4 +56,5 @@ export {
   userSchemaUpdateRequest,
   userSchemaResponse,
   userRetrieveSchemaResponse,
+  addressSchemaUpdateRequest
 };

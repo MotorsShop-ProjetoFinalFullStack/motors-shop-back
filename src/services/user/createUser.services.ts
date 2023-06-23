@@ -3,13 +3,12 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entitie";
 import { TUserRequest, TUserResponse } from "../../interfaces/user.interfaces";
 import { Address } from "../../entities/address.entitie";
-import { AppError } from "../../errors/AppError";
 import { userSchemaResponse } from "../../schemas/user.schemas";
 
 
 const createUserServices = async (data: TUserRequest): Promise<TUserResponse> => {
 
-    const {email, cpf} = data
+    
     const userRepository = AppDataSource.getRepository(User)
     const addressRepository = AppDataSource.getRepository(Address)
 

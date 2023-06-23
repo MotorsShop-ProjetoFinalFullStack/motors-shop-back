@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { createUserServices } from "../services/user/createUser.services";
-import { TUserRequest, TUserResponse } from "../interfaces/user.interfaces";
+import { TUserRequest, TUserUpdateRequest, TUserResponse } from "../interfaces/user.interfaces";
 import { retrieveUserService } from "../services/user/retrieveUser.services";
+import { updateUserService } from "../services/user/updateUser.services";
+import { deleteUserService } from "../services/user/deleteUserServices";
 import { retrieveUserByTokenService } from "../services/user/retrieveUserByToken.service";
 import { sendResetEmailResetPassword } from "../services/user/sendEmailResetPasswordUser.service";
 import { resetPassword } from "../services/user/resetPasswordUser.service";
@@ -41,6 +43,7 @@ const sendResetEmailPassword = async (
   await sendResetEmailResetPassword(email);
   return res.json({ message: "token send" });
 };
+
 const resetPasswordController = async (
   req: Request,
   res: Response
@@ -50,10 +53,26 @@ const resetPasswordController = async (
   await resetPassword(password, token);
   return res.json({ message: "password change with sucess" });
 };
-export {
-  createUserController,
-  retrieveUserController,
-  retrieveUserByTokenController,
-  sendResetEmailPassword,
-  resetPasswordController,
-};
+
+const updateUserController = async (req: Request, res: Response) => {
+
+    const userData = req.body
+
+    const userId: string = req.params.id
+
+    const newUser = updateUserService(userData, userId)
+
+    return res.json(newUser)
+}
+
+const deleteUserController = async (req: Request, res: Response) => {
+
+    const userId = req.params.id
+
+    await deleteUserService(userId)
+
+    return res.status(204).json()
+    
+}
+
+export {createUserController, retrieveUserController, retrieveUserByTokenController, updateUserController, deleteUserController, sendResetEmailPassword, resetPasswordController}
