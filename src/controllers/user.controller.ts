@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { createUserServices } from "../services/user/createUser.services";
-import { TUserRequest, TUserUpdateRequest } from "../interfaces/user.interfaces";
+import { TUserRequest, TUserUpdateRequest, TUserResponse } from "../interfaces/user.interfaces";
 import { retrieveUserService } from "../services/user/retrieveUser.services";
 import { updateUserService } from "../services/user/updateUser.services";
 import { deleteUserService } from "../services/user/deleteUserServices";
+import { retrieveUserByTokenService } from "../services/user/retrieveUserByToken.service";
 
 const createUserController = async (req: Request, res:Response) => {
 
@@ -45,4 +46,15 @@ const deleteUserController = async (req: Request, res: Response) => {
     
 }
 
-export {createUserController, retrieveUserController, updateUserController, deleteUserController}
+
+const retrieveUserByTokenController = async (req: Request, res: Response): Promise<Response> => {
+
+    const userId: string = req.user.id
+
+    const user: TUserResponse = await retrieveUserByTokenService(userId)
+
+    return res.json(user)
+}
+
+export {createUserController, retrieveUserController, retrieveUserByTokenController, updateUserController, deleteUserController}
+
