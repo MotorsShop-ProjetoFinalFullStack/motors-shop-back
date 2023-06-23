@@ -15,7 +15,7 @@ class Address {
     number: string
 
     @Column({type: "varchar", length: 100, nullable: true})
-    complement: string | null | undefined
+    complement?: string | null | undefined
 
     @Column({type: "varchar", length: 9})
     cep: string
@@ -26,7 +26,7 @@ class Address {
     @Column({type:"varchar", length: 2})
     state: string
 
-    @OneToOne(() => User, (user) => user.address)
+    @OneToOne(() => User, (user) => user.address, {onDelete:"CASCADE"})
     @JoinColumn()
     user: User
 

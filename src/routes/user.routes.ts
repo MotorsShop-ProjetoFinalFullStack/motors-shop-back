@@ -1,15 +1,17 @@
 import { Router } from "express";
-import { createUserController, retrieveUserByTokenController, retrieveUserController } from "../controllers/user.controller";
+import { createUserController, deleteUserController, retrieveUserController, updateUserController, retrieveUserByTokenController } from "../controllers/user.controller";
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
-import { userSchemaRequest } from "../schemas/user.schemas";
+import { userSchemaRequest, userSchemaUpdateRequest } from "../schemas/user.schemas";
 import { ensureUserExistsMiddleware } from "../middlewares/ensureUserExists.middleware";
+import { ensureUserExistsUpdateMiddleware } from "../middlewares/ensureUserExistsUpdate.middleware";
 import { verifyToken } from "../middlewares/verifyToken.middlewares";
-
 
 const userRoutes = Router()
 
 userRoutes.post("",ensureDataIsValidMiddleware(userSchemaRequest), ensureUserExistsMiddleware, createUserController)
 userRoutes.get("/:id", retrieveUserController)
+userRoutes.patch("/:id", ensureDataIsValidMiddleware(userSchemaUpdateRequest),ensureUserExistsUpdateMiddleware,  updateUserController)
+userRoutes.delete("/:id", deleteUserController)
 userRoutes.get("/unique/users", verifyToken, retrieveUserByTokenController)
 
 export {userRoutes}

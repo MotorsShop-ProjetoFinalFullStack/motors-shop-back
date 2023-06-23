@@ -35,11 +35,15 @@ const userSchemaRequest = userSchema.omit({
 
 const userSchemaUpdateRequest = userSchemaRequest.partial()
 
+const addressSchemaUpdateRequest = addressSchemaRequest.partial()
+
 const userSchemaResponse = userSchema.omit({
     password: true
 })
 
 const userRetrieveSchemaResponse = userSchemaResponse.extend({address: addressSchema})
+
+
 
 
 export {
@@ -49,7 +53,7 @@ export {
     userSchemaRequest, 
     userSchemaUpdateRequest, 
     userSchemaResponse,
-    userRetrieveSchemaResponse
+    userRetrieveSchemaResponse,
+    addressSchemaUpdateRequest
 }
 
-//.extend({    address: z.optional(addressSchemaRequest)})
