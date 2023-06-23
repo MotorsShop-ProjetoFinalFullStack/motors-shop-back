@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUserController, deleteUserController, retrieveUserController, updateUserController, retrieveUserByTokenController, sendResetEmailPassword } from "../controllers/user.controller";
+import { createUserController, deleteUserController, retrieveUserController, updateUserController, retrieveUserByTokenController, sendResetEmailPassword, resetPasswordController } from "../controllers/user.controller";
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
 import { userSchemaRequest, userSchemaUpdateRequest } from "../schemas/user.schemas";
 import { ensureUserExistsMiddleware } from "../middlewares/ensureUserExists.middleware";
