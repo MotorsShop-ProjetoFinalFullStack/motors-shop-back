@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { User } from "./user.entitie";
+import { Comment } from "./comment.entity";
 
 enum FuelType {
   Gasolina = "Gasolina",
@@ -46,6 +47,9 @@ class Announcement {
 
   @ManyToOne(() => User)
   user: User
+
+  @OneToMany(() => Comment, commentAnnouncement => commentAnnouncement.announcement)
+  comments: Comment[]
 }
 
 export { Announcement };

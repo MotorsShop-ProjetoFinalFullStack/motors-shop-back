@@ -21,6 +21,9 @@ const announcementRequestSchema = announcementSchema.omit({
 });
 const announcementResponseSchema = announcementSchema.omit({});
 const announcementMultipleResponseSchema = announcementResponseSchema.array();
+const announcementResponseForComment = announcementResponseSchema.omit({
+  user: true
+})
 
 const announcementUpdateSchema = z.object({
   brand: z.string().optional(),
@@ -39,5 +42,6 @@ export {
   announcementRequestSchema,
   announcementResponseSchema,
   announcementMultipleResponseSchema,
-  announcementUpdateSchema
+  announcementUpdateSchema,
+  announcementResponseForComment
 };
