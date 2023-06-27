@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Address } from "./address.entitie";
 import { Announcement } from "./announcement.entitie";
+import { Comment } from "./comment.entity";
 
 export enum TypeUser {
   CLIENT = "Comprador",
@@ -54,6 +55,10 @@ class User {
 
   @OneToMany(() => Announcement, (announcementsUser) => announcementsUser.user)
   announcements: Announcement[];
+
+  @OneToMany(() => Comment, commentUser => commentUser.user)
+  comments: Comment[]
+
 }
 
 export { User };
