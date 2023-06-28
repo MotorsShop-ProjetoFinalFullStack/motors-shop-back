@@ -4,12 +4,14 @@ import {
   TAllAnnouncementResponse,
   TAnnouncement,
   TAnnouncementRequest,
+  TAnnouncementResponse,
 } from "../interfaces/announcement.interfaces";
 import { createAnnouncementService } from "../services/announcement/createAnnouncement.services";
 import { listAnnouncementService } from "../services/announcement/listAnnouncement.services";
 import { deleteAnnouncementService } from "../services/announcement/deleteAnnouncement.services";
 import { updateAnnouncementService } from "../services/announcement/updateAnnouncement.services";
 import { listAnnouncementByTokenService } from "../services/announcement/listAnnouncementsByToken.service";
+import { getAnnouncementByIdService } from "../services/announcement/getAnnouncementById.service";
 
 const createAnnouncementController = async (req: Request, res: Response) => {
   const data: TAnnouncementRequest = req.body;
@@ -18,6 +20,15 @@ const createAnnouncementController = async (req: Request, res: Response) => {
   const newAnnouncement = await createAnnouncementService(data, userId);
   return res.status(201).json(newAnnouncement);
 };
+
+const getAnnouncementById = async (req: Request, res: Response): Promise<Response> => {
+
+  const announcementId: string = req.params.id
+
+  const announcement: TAnnouncementResponse = await getAnnouncementByIdService(announcementId)
+
+  return res.json(announcement)
+}
 
 const listAnnouncementController = async (req: Request, res: Response) => {
   const announcements: TAllAnnouncementResponse = await listAnnouncementService();
@@ -54,6 +65,7 @@ const upgradeAnnouncementController = async (req: Request, res: Response) => {
 
 export {
   createAnnouncementController,
+  getAnnouncementById,
   listAnnouncementController,
   listAnnouncementsByTokenController,
   deleteAnnouncementController,
