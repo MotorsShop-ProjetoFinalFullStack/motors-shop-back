@@ -18,7 +18,7 @@ const listAnnouncementByTokenService = async (userId: string): Promise<TAllAnnou
             }
         }
     })
-
+    
     const announcements: TAllAnnouncementResponse = announcementMultipleResponseSchema.parse(findAnnouncements)
 
     return announcements
