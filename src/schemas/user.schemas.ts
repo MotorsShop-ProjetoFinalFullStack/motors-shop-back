@@ -1,6 +1,16 @@
 import { z } from "zod";
 import { TypeUser } from "../entities/user.entitie";
 
+const addressSchema = z.object({
+  id: z.string(),
+  street: z.string(),
+  number: z.string(),
+  complement: z.string().optional(),
+  cep: z.string().max(9),
+  city: z.string(),
+  state: z.string().max(2),
+});
+
 const userSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -13,16 +23,7 @@ const userSchema = z.object({
   password: z.string(),
   createdAt: z.date().nullish(),
   resetToken: z.string().nullish(),
-});
-
-const addressSchema = z.object({
-  id: z.string(),
-  street: z.string(),
-  number: z.string(),
-  complement: z.string().optional(),
-  cep: z.string().max(9),
-  city: z.string(),
-  state: z.string().max(2),
+  address: addressSchema,
 });
 
 const addressSchemaRequest = addressSchema.omit({
@@ -38,7 +39,7 @@ const userSchemaRequest = userSchema
 
 const userSchemaUpdateRequest = userSchemaRequest.partial();
 
-const addressSchemaUpdateRequest = addressSchemaRequest.partial()
+const addressSchemaUpdateRequest = addressSchemaRequest.partial();
 
 const userSchemaResponse = userSchema.omit({
   password: true,
@@ -56,5 +57,5 @@ export {
   userSchemaUpdateRequest,
   userSchemaResponse,
   userRetrieveSchemaResponse,
-  addressSchemaUpdateRequest
+  addressSchemaUpdateRequest,
 };
