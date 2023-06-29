@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createAnnouncementController,
   deleteAnnouncementController,
+  getAnnouncementById,
   listAnnouncementController,
   listAnnouncementsByTokenController,
   upgradeAnnouncementController,
@@ -26,6 +27,8 @@ announcementRoutes.post(
 );
 
 announcementRoutes.get("", listAnnouncementController);
+
+announcementRoutes.get("/:id", ensureAnnouncementExistsMiddleware, getAnnouncementById)
 
 announcementRoutes.get("/users", verifyToken, verifyUserIsAdvertiserMiddleware, listAnnouncementsByTokenController)
 

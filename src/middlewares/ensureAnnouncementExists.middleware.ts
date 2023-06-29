@@ -12,14 +12,14 @@ export const ensureAnnouncementExistsMiddleware = async (
   const announcementRepository: Repository<Announcement> =
     AppDataSource.getRepository(Announcement);
 
-  const findUser = await announcementRepository.findOne({
+  const findAnnouncement = await announcementRepository.findOne({
     where: {
       id: String(req.params.id),
     },
   });
 
-  if (!findUser) {
-    throw new AppError("User not found", 404);
+  if (!findAnnouncement) {
+    throw new AppError("Announcement not found", 404);
   }
 
   return next();
