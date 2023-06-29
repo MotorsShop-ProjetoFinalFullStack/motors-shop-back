@@ -28,7 +28,7 @@ announcementRoutes.post(
 
 announcementRoutes.get("", listAnnouncementController);
 
-announcementRoutes.get("/:id", ensureAnnouncementExistsMiddleware, getAnnouncementById)
+announcementRoutes.get("/unique/:id", ensureAnnouncementExistsMiddleware, getAnnouncementById)
 
 announcementRoutes.get("/users", verifyToken, verifyUserIsAdvertiserMiddleware, listAnnouncementsByTokenController)
 
