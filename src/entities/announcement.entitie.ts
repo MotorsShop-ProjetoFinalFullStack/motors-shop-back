@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
 import { User } from "./user.entitie";
 import { Comment } from "./comment.entity";
 
@@ -45,11 +51,14 @@ class Announcement {
   @Column({ length: 255 })
   image: string;
 
-  @ManyToOne(() => User, {onDelete:"CASCADE"})
-  user: User
+  @ManyToOne(() => User, { onDelete: "CASCADE" })
+  user: User;
 
-  @OneToMany(() => Comment, commentAnnouncement => commentAnnouncement.announcement)
-  comments: Comment[]
+  @OneToMany(
+    () => Comment,
+    (commentAnnouncement) => commentAnnouncement.announcement
+  )
+  comments: Comment[];
 }
 
 export { Announcement };
