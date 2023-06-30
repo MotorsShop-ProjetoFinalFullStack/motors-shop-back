@@ -22,8 +22,7 @@ const userSchema = z.object({
   typeUser: z.nativeEnum(TypeUser).nullish(),
   password: z.string(),
   createdAt: z.date().nullish(),
-  resetToken: z.string().nullish(),
-  address: addressSchema,
+  resetToken: z.string().nullish(),  
 });
 
 const addressSchemaRequest = addressSchema.omit({
