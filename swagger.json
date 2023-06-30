@@ -1,0 +1,1069 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+        "title": "Api MotorShop Projeto Final M6",
+        "description": "This API allows for seamless integration and efficient management of user accounts, including registration, login, and authentication. The API also supports a range of operations for car advertisements, such as creating, viewing, updating, and deleting ads. Additionally, it enables the creation and listing of comments related to the ads. Overall, this API ensures smooth functionality, secure access, and enhanced user experience for user management, car advertisements, and comments within the application.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/users":{
+            "post":{
+                "description": "User creation",
+                "tags": ["Users"],
+                "requestBody":{
+                    "description": "Data for user creation",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/requestUser"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUser"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUser400"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUser409"
+                                }
+                            }
+                        }
+                    }
+                }
+            }                      
+        },
+        "/users/:id":{
+            "get":{
+                "description": "User List",  
+                "tags": ["Users"],              
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/responseUserList"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch":{
+                "description": "User Update",
+                "tags": ["Users"],
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "requestBody":{
+                    "description": "Data for user Update",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/requestUser"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUserUpdate400"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUser409"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "jwt malformed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUser401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Missing bearer token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUser403"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "description": "User Delete",
+                "tags": ["Users"],
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],                
+                "responses":{
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Invalid token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUser401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "token is missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUser403"
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+        },
+        "/users/unique/users":{
+            "get":{
+                "description": "User List",  
+                "tags": ["Users"],   
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],           
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/responseUser"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/resetPassword":{
+            "post":{
+                "description": "User reset password",
+                "tags": ["Users"],
+                "requestBody":{
+                    "description": "Data for password reset",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/requestResetPassword"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseResetPassword"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/resetPassword/:token":{
+            "patch":{
+                "description": "User reset password",
+                "tags": ["Users"],
+                "requestBody":{
+                    "description": "Data for password reset",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/requestNewPassword"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseNewPassword"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login":{
+            "post":{
+                "description": "User login",
+                "tags": ["Login"],
+                "requestBody":{
+                    "description": "Data for user login",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/requestLogin"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseLogin"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbiden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseLogin403"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseLogin400"
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        },
+        "/announcements":{
+            "post":{
+                "description": "Announcement creation",
+                "tags": ["Announcements"],   
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],              
+                "requestBody":{
+                    "description": "Data for announcements creation",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/requestAnnouncement"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseAnnouncement"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseAnnouncement400"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get":{
+                "description": "Announcements List",  
+                "tags": ["Announcements"],                              
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/responseAnnouncement"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }         
+        },
+        "/announcements/:id":{
+            "get":{
+                "description": "Retrieve announcement by id",  
+                "tags": ["Announcements"],                              
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {                                    
+                                    "$ref": "#/components/schemas/responseAnnouncement"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch":{
+                "description": "Announcements Update",
+                "tags": ["Announcements"],                
+                "requestBody":{
+                    "description": "Data for announcement Update",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/requestAnnouncement"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "$ref": "#/components/schemas/requestAnnouncement"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUserUpdate400"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "description": "Announcements Delete",
+                "tags": ["Announcements"],                                
+                "responses":{
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/announcements/users": {
+            "get":{
+                "description": "Retrieve announcement by user logged",  
+                "tags": ["Announcements"],  
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],                            
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/responseAnnouncement"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/comments/announcements/:id":{
+            "post":{
+                "description": "Comments creation",
+                "tags": ["Comments"],   
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],             
+                "requestBody":{
+                    "description": "Data for comments creation",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/requestComment"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseComment"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseComment400"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get":{
+                "description": "Comments List",  
+                "tags": ["Comments"],                              
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/responseComment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    },
+    "components":{
+        "schemas":{
+            "requestUser":{
+                "type":"object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "User name",
+                        "example": "Alex"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "alex@mail.com"
+                    },
+                    "cpf": {
+                        "type": "string",
+                        "description": "User cpf",
+                        "example": "12345678901"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "User phone contact",
+                        "example": "12345678901"
+                    },
+                    "birthdate": {
+                        "type": "string/date",
+                        "description": "User birthdate",
+                        "example": "13/09/1985"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "User description",
+                        "example": "My name is Alex!"
+                    },
+                    "typeUser": {
+                        "type": "string/enum",
+                        "description": "User type",
+                        "example": "Comprador/Anunciante"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User password",
+                        "example": "1234"
+                    },
+                    "address": {
+                        "type": "object",
+                        "description": "User address",
+                        "example": {
+                            "street":"Rua 1",
+                            "number": "1220",
+                            "complement": "Casa 1",
+                            "cep": "12345-678",
+                            "city": "São Paulo",
+                            "state": "SP"
+                        }
+                    }
+                    
+                }
+            },
+            "responseUser":{
+                "type":"object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "User Id",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User name",
+                        "example": "Alex"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "alex@mail.com"
+                    },
+                    "cpf": {
+                        "type": "string",
+                        "description": "User cpf",
+                        "example": "12345678901"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "User phone contact",
+                        "example": "12345678901"
+                    },
+                    "birthdate": {
+                        "type": "string/date",
+                        "description": "User birthdate",
+                        "example": "13/09/1985"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "User description",
+                        "example": "My name is Alex!"
+                    },
+                    "typeUser": {
+                        "type": "string/enum",
+                        "description": "User type",
+                        "example": "Comprador/Anunciante"
+                    },
+                    "createdAt": {
+                        "type": "string/date",
+                        "description": "User creation date",
+                        "example": "2023-06-28T18:46:56.514Z"
+                    },
+                    "resetToken": {
+                        "type": "null",
+                        "description": "User reset token",
+                        "example": null
+                    }
+                }
+            },
+            "responseUserList":{
+                "type":"object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "User Id",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User name",
+                        "example": "Alex"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "alex@mail.com"
+                    },
+                    "cpf": {
+                        "type": "string",
+                        "description": "User cpf",
+                        "example": "12345678901"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "User phone contact",
+                        "example": "12345678901"
+                    },
+                    "birthdate": {
+                        "type": "string/date",
+                        "description": "User birthdate",
+                        "example": "13/09/1985"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "User description",
+                        "example": "My name is Alex!"
+                    },
+                    "typeUser": {
+                        "type": "string/enum",
+                        "description": "User type",
+                        "example": "Comprador/Anunciante"
+                    },
+                    "createdAt": {
+                        "type": "string/date",
+                        "description": "User creation date",
+                        "example": "2023-06-28T18:46:56.514Z"
+                    },
+                    "resetToken": {
+                        "type": "null",
+                        "description": "User reset token",
+                        "example": null
+                    },
+                    "address": {
+                        "type": "object",
+                        "description": "User address",
+                        "example": {
+                            "id": "9c357726-ab3c-45eb-99c3-50d7cd7257b1",
+                            "street":"Rua 1",
+                            "number": "1220",
+                            "complement": "Casa 1",
+                            "cep": "12345-678",
+                            "city": "São Paulo",
+                            "state": "SP"
+                        }
+                    }
+                }
+            },
+            "responseUser400":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "name/email/cpf/phone/bithdate/password Required",
+                        "example": "name/email/cpf/phone/bithdate/password Required"
+                    }
+                }
+            },
+            "responseUserUpdate400":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Expected string",
+                        "example": "Expected string"
+                    }
+                }
+            },
+            "responseUser409":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Email/cpf already exists",
+                        "example": "Email/cpf already exists"
+                    }
+                }
+            },
+            "responseUser403":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Missing bearer token",
+                        "example": "Missing bearer token"
+                    }
+                }
+            },
+            "responseUser401":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "jwt malformed",
+                        "example": "jwt malformed"
+                    }
+                }
+            },
+            "requestResetPassword":{
+                "type":"object",
+                "properties": {                    
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "alex@mail.com"
+                    }
+                }
+            },
+            "responseResetPassword":{
+                "type":"object",
+                "properties": {                    
+                    "message": {
+                        "type": "string",
+                        "description": "token send",
+                        "example": "token send"
+                    }
+                }
+            },
+            "requestNewPassword":{
+                "type":"object",
+                "properties": {                    
+                    "password": {
+                        "type": "string",
+                        "description": "User password",
+                        "example": "1234"
+                    }
+                }
+            },
+            "responseNewPassword":{
+                "type":"object",
+                "properties": {                    
+                    "message": {
+                        "type": "string",
+                        "description": "password change with sucess",
+                        "example": "password change with sucess"
+                    }
+                }
+            },
+            "requestLogin":{
+                "type":"object",
+                "properties": {                    
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "alex@mail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User password",
+                        "example": "1234"
+                    }
+                }
+            },
+            "responseLogin":{
+                "type":"object",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkZlcm5hbmRvMiIsImlhdCI6MTY4NTQ3OTkxNiwiZXhwIjoxNjg1NTY2MzE2LCJzdWIiOiJmZDMyNmJkMi03MTAxLTQ5ZTYtODhiMy1hMDEwZTFhNmJlZmUifQ.Jvw2RRKvH9ReogfAp9zpt9_gzqOUA5pzPPSbw8wtDzc"
+                    }
+                }
+            },
+            "responseLogin403":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "invalid credentials",
+                        "example": "invalid credentials"
+                    }
+                }
+            },
+            "responseLogin400":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "email/password Required",
+                        "example": "email/password Required"
+                    }
+                }
+            },
+            "requestAnnouncement":{
+                "type":"object",
+                "properties": {
+                    "brand": {
+                        "type": "string",
+                        "description": "Car brand",
+                        "example": "VW"
+                    },
+                    "model": {
+                        "type": "string",
+                        "description": "Car model",
+                        "example": "Golf"
+                    },                    
+                    "year": {
+                        "type": "date",
+                        "description": "Fabrication year",
+                        "example": "01/01/2002"
+                    },
+                    "fuel": {
+                        "type": "string",
+                        "description": "Car fuel",
+                        "example": "Gasolina"
+                    },
+                    "km": {
+                        "type": "number",
+                        "description": "Car km",
+                        "example": 15000
+                    },
+                    "color": {
+                        "type": "string",
+                        "description": "Car color",
+                        "example": "Black"
+                    },
+                    "fipePrice": {
+                        "type": "number",
+                        "description": "Car fipe price",
+                        "example": 22000
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Car price",
+                        "example": 25000
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Car description",
+                        "example": "único dono"
+                    },
+                    "image": {
+                        "type": "string",
+                        "description": "Car link image",
+                        "example": "http://carphoto.com/golf.jpg"
+                    }
+                }
+            },
+            "responseAnnouncement":{
+                "type":"object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Car id",
+                        "example": "02f951db-cc68-4160-bd2a-6a44505a1080"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "Car brand",
+                        "example": "VW"
+                    },
+                    "model": {
+                        "type": "string",
+                        "description": "Car model",
+                        "example": "Golf"
+                    },                    
+                    "year": {
+                        "type": "date",
+                        "description": "Fabrication year",
+                        "example": "01/01/2002"
+                    },
+                    "fuel": {
+                        "type": "string",
+                        "description": "Car fuel",
+                        "example": "Gasolina"
+                    },
+                    "km": {
+                        "type": "number",
+                        "description": "Car km",
+                        "example": 15000
+                    },
+                    "color": {
+                        "type": "string",
+                        "description": "Car color",
+                        "example": "Black"
+                    },
+                    "fipePrice": {
+                        "type": "number",
+                        "description": "Car fipe price",
+                        "example": 22000
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Car price",
+                        "example": 25000
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Car description",
+                        "example": "único dono"
+                    },
+                    "image": {
+                        "type": "string",
+                        "description": "Car link image",
+                        "example": "http://carphoto.com/golf.jpg"
+                    },
+                    "user": {
+                        "type": "object",
+                        "description": "Car user info",
+                        "example":{
+                            "id": "263edfcb-e479-4312-b5c0-379b4a16dbfb",
+                            "name": "Fernando",
+                            "email": "fer@mail.com",
+                            "cpf": "22255000000",
+                            "phone": "758963256",
+                            "birthdate": "1985-09-13",
+                            "description": "Olá!!!",
+                            "typeUser": "Anunciante",
+                            "createdAt": "2023-06-29T19:37:38.094Z",
+                            "resetToken": null
+                        }
+                    }
+                }
+            },
+            "responseAnnouncement400":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "brand/model/year/fuel/km/color/fipePrice/price/description/image/ Required",
+                        "example": "brand/model/year/fuel/km/color/fipePrice/price/description/image/ Required"
+                    }
+                }
+            },
+            "requestComment":{
+                "type":"object",
+                "properties": {                    
+                    "content": {
+                        "type": "string",
+                        "description": "Opinion of the user about the car",
+                        "example": "Marea é uma bomba!"
+                    }
+                }
+            },
+            "responseComment":{
+                "type":"object",
+                "properties": {  
+                    "id": {
+                        "type": "string",
+                        "description": "comment uuid",
+                        "example": "47fd8d09-0be4-4686-b5b6-dd659bf238dd"
+                    },                  
+                    "content": {
+                        "type": "string",
+                        "description": "Opinion of the user about the car",
+                        "example": "Marea é uma bomba!"
+                    },                  
+                    "createdAt": {
+                        "type": "string/date",
+                        "description": "Comment date creation",
+                        "example": "2023-06-29"
+                    },                  
+                    "user": {
+                        "type": "object",
+                        "description": "User info",
+                        "example": {
+                            "id": "263edfcb-e479-4312-b5c0-379b4a16dbfb",
+                            "name": "Fernando",
+                            "email": "fer@mail.com",
+                            "cpf": "22255000000",
+                            "phone": "758963256",
+                            "birthdate": "1985-09-13",
+                            "description": "Olá!!!",
+                            "typeUser": "Anunciante",
+                            "createdAt": "2023-06-29T19:37:38.094Z",
+                            "resetToken": null
+                        }
+                    },
+                    "announcement":{
+                        "type": "object",
+                        "description": "User info",
+                        "example": {
+                            "id": "02f951db-cc68-4160-bd2a-6a44505a1080",
+                            "brand": "audi2",
+                            "model": "A3",
+                            "year": "2005-01-01",
+                            "fuel": "Gasolina",
+                            "km": 15000,
+                            "color": "preto",
+                            "fipePrice": 35000,
+                            "price": 34900,
+                            "description": "Carro zerado, unico dono",
+                            "image": "http://carphoto.com/image.jpg"
+                        } 
+                    }
+                }
+            },
+            "responseComment400":{
+                "type":"object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "content Required",
+                        "example": "content Required"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth":{
+                "description": "JWT Authentication",
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

@@ -45,7 +45,7 @@ class Announcement {
   @Column({ length: 255 })
   image: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, {onDelete:"CASCADE"})
   user: User
 
   @OneToMany(() => Comment, commentAnnouncement => commentAnnouncement.announcement)

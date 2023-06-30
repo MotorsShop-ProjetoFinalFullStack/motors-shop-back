@@ -15,8 +15,8 @@ userRoutes.post(
   createUserController
 );
 userRoutes.get("/:id", retrieveUserController);
-userRoutes.patch("/:id", ensureDataIsValidMiddleware(userSchemaUpdateRequest),ensureUserExistsUpdateMiddleware,  updateUserController)
-userRoutes.delete("/:id", deleteUserController)
+userRoutes.patch("/:id", verifyToken, ensureDataIsValidMiddleware(userSchemaUpdateRequest),ensureUserExistsUpdateMiddleware,  updateUserController)
+userRoutes.delete("/:id", verifyToken, deleteUserController)
 userRoutes.get("/unique/users", verifyToken, retrieveUserByTokenController);
 userRoutes.post("/resetPassword", sendResetEmailPassword);
 userRoutes.patch("/resetPassword/:token", resetPasswordController);
