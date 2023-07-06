@@ -19,9 +19,9 @@ const retrieveUserByTokenService = async (
     },
   });
 
-  const user: any = userSchemaResponse.parse(findUser);
+  //const user: any = userSchemaResponse.parse(findUser);
 
-  return user;
+  return findUser;
 };
 
 export { retrieveUserByTokenService };
