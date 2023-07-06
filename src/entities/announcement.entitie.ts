@@ -44,7 +44,7 @@ class Announcement {
   @Column({ type: "text" })
   description: string;
 
-  @Column()
+  @Column({ type: "text" })
   image: string;
 
   @ManyToOne(() => User, {onDelete:"CASCADE"})
