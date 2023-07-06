@@ -8,6 +8,7 @@ import {
 import { User } from "./user.entitie";
 import { Comment } from "./comment.entity";
 
+/*
 enum FuelType {
   Gasolina = "Gasolina",
   Alcool = "Álcool",
@@ -15,6 +16,7 @@ enum FuelType {
   Diesel = "Diesel",
   Eletrico = "Elétrico",
 }
+*/
 
 @Entity("announcements")
 class Announcement {
@@ -30,7 +32,7 @@ class Announcement {
   @Column({ type: "date" })
   year: string;
 
-  @Column({ type: "enum", enum: FuelType })
+  @Column({ length: 50 })
   fuel: string;
 
   @Column({ type: "int" })
@@ -48,7 +50,7 @@ class Announcement {
   @Column({ type: "text" })
   description: string;
 
-  @Column({ length: 255 })
+  @Column({ type: "text" })
   image: string;
 
   @ManyToOne(() => User, { onDelete: "CASCADE" })

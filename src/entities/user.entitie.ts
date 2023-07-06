@@ -10,10 +10,13 @@ import { Address } from "./address.entitie";
 import { Announcement } from "./announcement.entitie";
 import { Comment } from "./comment.entity";
 
+/*
 export enum TypeUser {
   CLIENT = "Comprador",
   SELLER = "Anunciante",
 }
+*/
+
 
 @Entity("users")
 class User {
@@ -38,8 +41,8 @@ class User {
   @Column({ type: "varchar", length: 350, nullable: true })
   description?: string | null | undefined;
 
-  @Column({ type: "enum", enum: TypeUser, default: TypeUser.CLIENT })
-  typeUser: TypeUser | null | undefined;
+  @Column({ type: "varchar", length: 50 })
+  typeUser: string | null | undefined;
 
   @Column({ type: "varchar", length: 120 })
   password: string;

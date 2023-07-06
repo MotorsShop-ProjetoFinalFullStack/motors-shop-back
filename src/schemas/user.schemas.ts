@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { TypeUser } from "../entities/user.entitie";
+//import { TypeUser } from "../entities/user.entitie";
 
 const addressSchema = z.object({
   id: z.string(),
@@ -19,11 +19,11 @@ const userSchema = z.object({
   phone: z.string().max(11),
   birthdate: z.string(),
   description: z.string().nullish(),
-  typeUser: z.nativeEnum(TypeUser).nullish(),
+  //typeUser: z.nativeEnum(TypeUser).nullish(),
+  typeUser: z.string().nullish(),
   password: z.string(),
   createdAt: z.date().nullish(),
-  resetToken: z.string().nullish(),
-  address: addressSchema,
+  resetToken: z.string().nullish(),  
 });
 
 const addressSchemaRequest = addressSchema.omit({
