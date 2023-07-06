@@ -43,6 +43,7 @@ const addressSchemaUpdateRequest = addressSchemaRequest.partial();
 
 const userSchemaResponse = userSchema.omit({
   password: true,
+  address: true,
 });
 
 const userRetrieveSchemaResponse = userSchemaResponse.extend({

@@ -19,8 +19,6 @@ const retrieveUserByTokenService = async (
     },
   });
 
-  //const user: any = userSchemaResponse.parse(findUser);
-
   return findUser;
 };
 

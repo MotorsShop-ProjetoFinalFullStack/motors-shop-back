@@ -12,19 +12,21 @@ const createAnnouncementService = async (
   data: TAnnouncementRequest,
   userId: string
 ): Promise<TAnnouncementResponse> => {
-  const announcementRepository: Repository<Announcement> = AppDataSource.getRepository(Announcement);
-  const usersRepository: Repository<User> = AppDataSource.getRepository(User)
+  const announcementRepository: Repository<Announcement> =
+    AppDataSource.getRepository(Announcement);
+  const usersRepository: Repository<User> = AppDataSource.getRepository(User);
 
   const user: User | null = await usersRepository.findOne({
     where: {
-      id: userId
-    }
-  })
+      id: userId,
+    },
+  });
 
   const announcement = announcementRepository.create({
     ...data,
-    user: user!
+    user: user!,
   });
+  console.log(announcement);
   await announcementRepository.save(announcement);
   return announcementResponseSchema.parse(announcement);
 };

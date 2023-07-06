@@ -23,8 +23,12 @@
     "nodemailer": "^6.9.3",
     "pg": "^8.11.0",
     "reflect-metadata": "^0.1.13",
-    "swagger-ui-express": "^4.6.3",    
-    "typeorm": "^0.3.16",    
+    "swagger-ui-express": "^4.6.3",   
+    "ts-node-dev": "^2.0.0",
+    "typeorm": "^0.3.16",
+    "typescript": "^5.0.4",
+    "uuid": "^9.0.0",
+    "uuid-parse": "^1.1.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
